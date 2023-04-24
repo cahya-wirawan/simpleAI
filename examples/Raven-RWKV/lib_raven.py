@@ -30,7 +30,8 @@ ctx_limit = 4096
 
 
 def get_model():
-    model_path = get_model_path(MODEL)
+    # model_path = get_model_path(MODEL)
+    model_path = "/mnt/nvme/home/cahya/_Work/RWKV-LM/RWKV-v4neo/out-7b/backup/rwkv-251.pth"
 
     model = RWKV(
         model=model_path, strategy="cuda fp16i8 *40 -> cuda fp16i8 *0+ -> cpu fp32 *1"
@@ -113,6 +114,7 @@ def chat(
         tmp = pipeline.decode(all_tokens[out_last:])
         if "\ufffd" not in tmp:
             out_str += tmp
+            print(f"{tmp}|")
             yield tmp
             out_last = i + 1
     gc.collect()
