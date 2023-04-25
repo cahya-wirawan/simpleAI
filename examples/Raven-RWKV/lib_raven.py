@@ -75,10 +75,10 @@ def chat(
     pipeline,
     prompt="",
     token_count=200,
-    temperature=1.0,
-    top_p=0.7,
-    presencePenalty=0.1,
-    countPenalty=0.1,
+    temperature=0.5,
+    top_p=0.5,
+    presencePenalty=0.2,
+    countPenalty=0.2,
 ):
     args = PIPELINE_ARGS(
         temperature=max(0.2, float(temperature)),
