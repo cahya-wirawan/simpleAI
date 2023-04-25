@@ -13,7 +13,7 @@ class CompletionInput(BaseModel):
     model: str
     prompt: Union[str, List[str]] = "<|endoftext|>"
     suffix: str = ""
-    max_tokens: int = 7
+    max_tokens: int = 256
     temperature: float = 1.0
     top_p: float = 1.0
     n: int = 1
@@ -36,7 +36,7 @@ class ChatCompletionInput(BaseModel):
     n: int = 1
     stream: bool = False
     stop: Optional[Union[str, list]] = ""
-    max_tokens: int = 7
+    max_tokens: int = 256
     presence_penalty: float = 0.0
     frequence_penalty: float = 0.0
     logit_bias: Optional[dict] = {}

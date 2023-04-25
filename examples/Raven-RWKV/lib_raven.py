@@ -2,6 +2,7 @@ import gc
 import logging
 import os
 from typing import List
+from collections import deque
 
 import torch
 from get_models import MODEL, TOKENIZER_PATH, get_model_path
@@ -27,6 +28,7 @@ logger = logging.getLogger(__file__)
 nvmlInit()
 gpu_h = nvmlDeviceGetHandleByIndex(0)
 ctx_limit = 4096
+MAX_TOKENS_HISTORY = 10
 
 
 def get_model():
@@ -91,6 +93,7 @@ def chat(
     gpu_info = nvmlDeviceGetMemoryInfo(gpu_h)
     logger.debug(f"vram {gpu_info.total} used {gpu_info.used} free {gpu_info.free}")
 
+    tokens_history = deque("", MAX_TOKENS_HISTORY)
     all_tokens = []
     out_last = 0
     out_str = ""
@@ -115,6 +118,9 @@ def chat(
         if "\ufffd" not in tmp:
             out_str += tmp
             print(f"{tmp}|")
+            tokens_history.append(tmp)
+            if "\n\n" in ''.join(tokens_history):
+                break
             yield tmp
             out_last = i + 1
     gc.collect()
