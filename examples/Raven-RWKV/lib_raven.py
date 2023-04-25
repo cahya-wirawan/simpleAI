@@ -29,6 +29,7 @@ nvmlInit()
 gpu_h = nvmlDeviceGetHandleByIndex(0)
 ctx_limit = 4096
 MAX_TOKENS_HISTORY = 10
+STOP_STRING = "\n\n"
 
 
 def get_model():
@@ -119,7 +120,7 @@ def chat(
             out_str += tmp
             print(f"{tmp}|")
             tokens_history.append(tmp)
-            if "\n\n" in ''.join(tokens_history):
+            if STOP_STRING in ''.join(tokens_history):
                 break
             yield tmp
             out_last = i + 1
