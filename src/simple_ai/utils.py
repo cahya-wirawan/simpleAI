@@ -72,7 +72,7 @@ def format_chat_response(model_name: str, predictions, usage=dummy_usage) -> dic
         "created": current_timestamp,
         "choices": [
             {
-                "role": "assistant",
+                "role": "Assistant",
                 "index": idx,
                 "message": message,
                 "finish_reason": "stop",
@@ -128,4 +128,4 @@ def format_chat_log(chat: list[dict[str, str]] = dict()) -> str:
     raw_chat_text = ""
     for item in chat:
         raw_chat_text += f"{item.get('role')}: {item.get('content')}\n\n"
-    return raw_chat_text + "assistant: "
+    return raw_chat_text + "Assistant: "

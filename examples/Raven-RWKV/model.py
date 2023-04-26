@@ -46,7 +46,7 @@ class RavenRWKVModel(LanguageModel):
 
         output = "".join(output)
 
-        return [{"role": "raven", "content": output}]
+        return [{"role": "Assistant", "content": output}]
 
     def complete(
         self,
