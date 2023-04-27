@@ -80,6 +80,8 @@ def chat(
     presencePenalty=0.2,
     countPenalty=0.2,
 ):
+    print("# temperature:", temperature, top_p)
+    print("# instruction:", instruction)
     args = PIPELINE_ARGS(
         temperature=max(0.2, float(temperature)),
         top_p=float(top_p),
