@@ -125,7 +125,7 @@ def chat(
             last_tokens = ''.join(tokens_history)
             stop_string_found = False
             for stop_string in STOP_STRINGS:
-                if stop_string in last_tokens:
+                if last_tokens.startswith(stop_string):
                     print("# Found stop string:", stop_string)
                     stop_string_found = True
                     break
