@@ -29,7 +29,7 @@ nvmlInit()
 gpu_h = nvmlDeviceGetHandleByIndex(0)
 ctx_limit = 4096
 MAX_TOKENS_HISTORY = 10
-STOP_STRING = "\n\n"
+STOP_STRINGS = ["\n\n", "\nUser:", "\nBob:", "\nDescription:"]
 
 
 def get_model():
@@ -118,9 +118,16 @@ def chat(
         tmp = pipeline.decode(all_tokens[out_last:])
         if "\ufffd" not in tmp:
             out_str += tmp
-            print(f"{tmp}|")
+            # print(f"{tmp}|")
             tokens_history.append(tmp)
-            if STOP_STRING in ''.join(tokens_history):
+            last_tokens = ''.join(tokens_history)
+            stop_string_found = False
+            for stop_string in STOP_STRINGS:
+                if stop_string in last_tokens:
+                    print("# Found stop string:", stop_string)
+                    stop_string_found = True
+                    break
+            if stop_string_found:
                 break
             yield tmp
             out_last = i + 1
