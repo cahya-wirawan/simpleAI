@@ -14,8 +14,8 @@ class CompletionInput(BaseModel):
     prompt: Union[str, List[str]] = "<|endoftext|>"
     suffix: str = ""
     max_tokens: int = 1024
-    temperature: float = 0.5
-    top_p: float = 0.5
+    temperature: float = 0.9
+    top_p: float = 0.3
     n: int = 1
     stream: bool = False
     logprobs: int = 0
@@ -31,8 +31,8 @@ class CompletionInput(BaseModel):
 class ChatCompletionInput(BaseModel):
     model: str
     messages: list[dict]
-    temperature: float = 0.5
-    top_p: float = 0.5
+    temperature: float = 0.9
+    top_p: float = 0.3
     n: int = 1
     stream: bool = False
     stop: Optional[Union[str, list]] = ""
